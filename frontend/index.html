@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <title>Crisptag - TODO List</title>
+        <script src="./js/vue.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="app">
+            <div class="header">
+                <span class="title">TODO List</span>
+            </div>
+            <div id="app" class="mainContaint">
+                <button class="btn" v-on:click="openForm()" v-if="showTable">Create a new TODO task</button>
+                <button class="btn" v-on:click="openTable()" v-if="showForm">TODO task list</button>
+                <div v-if="showForm" class="todoForm">
+                    <h3>Create a new task</h3>
+                    <form>
+                      <label for="tName">Task Name*</label>
+                      <input type="text" id="tName" name="taskname" ref="taskName" placeholder="Task name..">
+                  
+                      <label for="dDate">Due Date*</label>
+                      <input type="date" id="dDate" name="dueDate" ref="dueDate">
+                  
+                      <label for="prio">Priority</label>
+                      <select id="prio" name="priority" ref="priority">
+                        <option value="low">Low</option>
+                        <option value="medium">medium</option>
+                        <option value="high">high</option>
+                      </select>
+
+                      <label for="des">Description*</label>
+                      <textarea id="des" ref="description"></textarea>
+                    
+                      <input type="submit" value="Submit" @click.prevent="submitForm()">
+                    </form>
+                </div>
+                <div v-if="showTable" class="todoForm">
+                    <h3>TODO task List</h3>
+                    <table id="todoListTable">
+                        <tr>
+                          <th>Task Name</th>
+                          <th>Due Date</th>
+                          <th>Priority</th>
+                          <th>Description</th>
+                        </tr>
+                        <tr v-for="data in todoData">
+                          <td>{{ data.taskName }}</td>
+                          <td>{{ data.dueDate }}</td>
+                          <td>{{ data.priority }}</td>
+                          <td>{{ data.description }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script src="main.js"></script>
+        <style>
+            body{
+                background-color: rgb(182, 235, 232);
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            }
+
+            .header {
+                overflow: hidden;
+                background-color: #f1f1f1;
+                padding: 20px 10px;
+            }
+
+            .header .title {
+                font-size: 25px;
+                font-weight: bold;
+            }
+
+            .mainContaint{
+                margin: 15px;
+                padding: 15px;
+            }
+
+            .btn{
+            background-color: rgb(211, 230, 127);
+            border-radius: 7px; 
+            padding: 5px;
+            font-size: 15px;
+            margin: 5px;
+            }
+
+            input[type=text], select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            input[type=date], select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            input[type=submit] {
+                width: 100%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            textarea{
+                width: 100%;
+                height: 100px;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            input[type=submit]:hover {
+                background-color: #45a049;
+            }
+
+            .todoForm{
+                width: 500px;
+                margin-left: 50px;
+            }
+
+            #todoListTable {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #todoListTable td, #todoListTable th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #todoListTable tr:nth-child(even){background-color: #f2f2f2;}
+
+            #todoListTable tr:hover {background-color: #ddd;}
+
+            #todoListTable th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+            }
+        </style>
+    </body>
+</html>
